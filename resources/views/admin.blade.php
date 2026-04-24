@@ -61,6 +61,10 @@
     <a class="nav-link" href="{{route('admin.product.index')}}">
         Products
     </a>
+</li><li class="nav-item">
+    <a class="nav-link" href="{{route('admin.banner.index')}}">
+        Banners
+    </a>
 </li></ul>
                 </div>
             </nav>

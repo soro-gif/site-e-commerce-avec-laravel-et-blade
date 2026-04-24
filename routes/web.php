@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -109,5 +107,32 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     //Delete User
     Route::delete('/users/delete/{user}', 'App\Http\Controllers\UserController@delete')->name('user.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Banners datas
+    Route::get('/banners', 'App\Http\Controllers\BannerController@index')->name('banner.index');
+
+    //Show Banner by Id
+    Route::get('/banners/show/{id}', 'App\Http\Controllers\BannerController@show')->name('banner.show');
+
+    //Get Banners by Id
+    Route::get('/banners/create', 'App\Http\Controllers\BannerController@create')->name('banner.create');
+
+    //Edit Banner by Id
+    Route::get('/banners/edit/{id}', 'App\Http\Controllers\BannerController@edit')->name('banner.edit');
+
+    //Save new Banner
+    Route::post('/banners/store', 'App\Http\Controllers\BannerController@store')->name('banner.store');
+
+    //Update One Banner
+    Route::put('/banners/update/{banner}', 'App\Http\Controllers\BannerController@update')->name('banner.update');
+
+    //Update One Banner Speedly
+    Route::put('/banners/speed/{banner}', 'App\Http\Controllers\BannerController@updateSpeed')->name('banner.update.speed');
+
+    //Delete Banner
+    Route::delete('/banners/delete/{banner}', 'App\Http\Controllers\BannerController@delete')->name('banner.delete');
 
 });
