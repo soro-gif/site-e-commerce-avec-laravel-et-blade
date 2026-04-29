@@ -5,5 +5,9 @@
 @endsection
 
 @section('content')
-{!! $page->content !!}
+@include('lstore.components.top-page', ['title' => $page->title])
+<div class="container">
+    {!! $page->content !!}
+</div>
+
 @endsection
