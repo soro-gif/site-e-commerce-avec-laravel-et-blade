@@ -33,21 +33,13 @@
                     <div  class="widget">
                         <h6  class="widget_title">Useful Links</h6>
                         <ul  class="widget_links">
+                            @foreach (session()->get('pages')['footPages'] as $page)
+                                       
                             <li ><a 
-                                    ng-reflect-router-link="/page,a-propos-de-nous-shop"
-                                    href="/page/a-propos-de-nous-shop">A Propos de nous</a></li>
-                            <li ><a 
-                                    ng-reflect-router-link="/page,nos-services-jstore"
-                                    href="/page/nos-services-jstore">Nos services</a></li>
-                            <li ><a 
-                                    ng-reflect-router-link="/page,contactez-nous-category"
-                                    href="/page/contactez-nous-category">Contactez-Nous</a></li>
-                            <li ><a 
-                                    ng-reflect-router-link="/page,nos-partenaires-mudey"
-                                    href="/page/nos-partenaires-mudey">Nos partenaires</a></li>
-                            <li ><a 
-                                    ng-reflect-router-link="/page,mentions-lgales-espero"
-                                    href="/page/mentions-lgales-espero">Mentions légales</a></li>
+                                    
+                                    href="{{ route('page', ['page' => $page->slug]) }}">{{ $page->title }}</a>
+                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

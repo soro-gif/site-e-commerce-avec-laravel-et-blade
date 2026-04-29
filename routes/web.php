@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,8 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('preload.page');
+Route::get('/page/{page}', [HomeController::class, 'showPage'])->name('page')->middleware('preload.page');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -134,5 +136,86 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     //Delete Banner
     Route::delete('/banners/delete/{banner}', 'App\Http\Controllers\BannerController@delete')->name('banner.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Shopcollections datas
+    Route::get('/shopcollections', 'App\Http\Controllers\ShopcollectionController@index')->name('shopcollection.index');
+
+    //Show Shopcollection by Id
+    Route::get('/shopcollections/show/{id}', 'App\Http\Controllers\ShopcollectionController@show')->name('shopcollection.show');
+
+    //Get Shopcollections by Id
+    Route::get('/shopcollections/create', 'App\Http\Controllers\ShopcollectionController@create')->name('shopcollection.create');
+
+    //Edit Shopcollection by Id
+    Route::get('/shopcollections/edit/{id}', 'App\Http\Controllers\ShopcollectionController@edit')->name('shopcollection.edit');
+
+    //Save new Shopcollection
+    Route::post('/shopcollections/store', 'App\Http\Controllers\ShopcollectionController@store')->name('shopcollection.store');
+
+    //Update One Shopcollection
+    Route::put('/shopcollections/update/{shopcollection}', 'App\Http\Controllers\ShopcollectionController@update')->name('shopcollection.update');
+
+    //Update One Shopcollection Speedly
+    Route::put('/shopcollections/speed/{shopcollection}', 'App\Http\Controllers\ShopcollectionController@updateSpeed')->name('shopcollection.update.speed');
+
+    //Delete Shopcollection
+    Route::delete('/shopcollections/delete/{shopcollection}', 'App\Http\Controllers\ShopcollectionController@delete')->name('shopcollection.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Collections datas
+    Route::get('/collections', 'App\Http\Controllers\CollectionController@index')->name('collection.index');
+
+    //Show Collection by Id
+    Route::get('/collections/show/{id}', 'App\Http\Controllers\CollectionController@show')->name('collection.show');
+
+    //Get Collections by Id
+    Route::get('/collections/create', 'App\Http\Controllers\CollectionController@create')->name('collection.create');
+
+    //Edit Collection by Id
+    Route::get('/collections/edit/{id}', 'App\Http\Controllers\CollectionController@edit')->name('collection.edit');
+
+    //Save new Collection
+    Route::post('/collections/store', 'App\Http\Controllers\CollectionController@store')->name('collection.store');
+
+    //Update One Collection
+    Route::put('/collections/update/{collection}', 'App\Http\Controllers\CollectionController@update')->name('collection.update');
+
+    //Update One Collection Speedly
+    Route::put('/collections/speed/{collection}', 'App\Http\Controllers\CollectionController@updateSpeed')->name('collection.update.speed');
+
+    //Delete Collection
+    Route::delete('/collections/delete/{collection}', 'App\Http\Controllers\CollectionController@delete')->name('collection.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Pages datas
+    Route::get('/pages', 'App\Http\Controllers\PageController@index')->name('page.index');
+
+    //Show Page by Id
+    Route::get('/pages/show/{id}', 'App\Http\Controllers\PageController@show')->name('page.show');
+
+    //Get Pages by Id
+    Route::get('/pages/create', 'App\Http\Controllers\PageController@create')->name('page.create');
+
+    //Edit Page by Id
+    Route::get('/pages/edit/{id}', 'App\Http\Controllers\PageController@edit')->name('page.edit');
+
+    //Save new Page
+    Route::post('/pages/store', 'App\Http\Controllers\PageController@store')->name('page.store');
+
+    //Update One Page
+    Route::put('/pages/update/{page}', 'App\Http\Controllers\PageController@update')->name('page.update');
+
+    //Update One Page Speedly
+    Route::put('/pages/speed/{page}', 'App\Http\Controllers\PageController@updateSpeed')->name('page.update.speed');
+
+    //Delete Page
+    Route::delete('/pages/delete/{page}', 'App\Http\Controllers\PageController@delete')->name('page.delete');
 
 });

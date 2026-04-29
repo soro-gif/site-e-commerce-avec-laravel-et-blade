@@ -6,7 +6,7 @@
 
 @section('content')
 <div >
-<h3> Products Details</h3>
+<h3> Pages Details</h3>
 
 <div class="d-flex justify-content-end">
     <div class="dropdown m-1">
@@ -16,92 +16,52 @@
         </button>
         <div id="columnSelector" class="dropdown-menu"> </div>
     </div>
-    <a href="{{ route('admin.product.create') }}" class="btn btn-success m-1">
+    <a href="{{ route('admin.page.create') }}" class="btn btn-success m-1">
 
-            Create Product
+            Create Page
 
     </a>
 </div>
 <div class="">
     <div class="card-body">
     <div class="table-responsive">
-        <table  id="Product" class="table">
+        <table  id="Page" class="table">
             <thead>
                 <tr>
                     <th scope="col">N#</th>
-						<th scope="col">Name</th>
+						<th scope="col">Title</th>
 						<th scope="col">Slug</th>
-						<th scope="col">Description</th>
-						<th scope="col">MoreDescription</th>
-						<th scope="col">AdditionalInfos</th>
-						<th scope="col">Stock</th>
-						<th scope="col">SoldePrice</th>
-						<th scope="col">RegularPrice</th>
-						<th scope="col">ImageUrls</th>
-						<th scope="col">Brand</th>
-						<th scope="col">IsAvailable</th>
-						<th scope="col">IsBestSeller</th>
-						<th scope="col">IsNewArrival</th>
-						<th scope="col">IsFeatured</th>
-						<th scope="col">IsSpecialOffer</th>
+						<th scope="col">Content</th>
+						<th scope="col">IsHead</th>
+						<th scope="col">IsFoot</th>
 						
 						<th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($products as $product)
-						<tr><td>{{ $product->id }}</td>
-							<td>{{ $product->name }}</td>
-							<td>{{ $product->slug }}</td>
-							<td>{{ $product->description }}</td>
-							<td>{!! $product->moreDescription !!}</td>
-							<td>{!! $product->additionalInfos !!}</td>
-							<td>{{ $product->stock }}</td>
-							<td>{{ number_format($product->soldePrice, 2, ',', ' ') . ' €' }}</td>
-							<td>{{ number_format($product->regularPrice, 2, ',', ' ') . ' €' }}</td>
-							    <td>
-        <div class="form-group d-flex" id="preview_imageUrl" style="max-width: 100%;">
-        @foreach ($product->imageUrls() as $url)
-            <img src="{{ Storage::url($url) }}"
-                alt="Product image"
-                style="max-width: 100px; display: block;">
-        @endforeach
-    </div>
-</td>
-							<td>{{ $product->brand }}</td>
+                @foreach($pages as $page)
+						<tr><td>{{ $page->id }}</td>
+							<td>{{ $page->title }}</td>
+							<td>{{ $page->slug }}</td>
+							<td>{!! $page->content !!}</td>
 							    <td>
     <div class="form-check form-switch">
-        <input name="isAvailable" id="isAvailable" data-id="{{$product->id}}" value="true" data-bs-toggle="toggle"  {{ isset($product) && $product->isAvailable == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
+        <input name="isHead" id="isHead" data-id="{{$page->id}}" value="true" data-bs-toggle="toggle"  {{ isset($page) && $page->isHead == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
     </div>
 </td>
 							    <td>
     <div class="form-check form-switch">
-        <input name="isBestSeller" id="isBestSeller" data-id="{{$product->id}}" value="true" data-bs-toggle="toggle"  {{ isset($product) && $product->isBestSeller == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
-    </div>
-</td>
-							    <td>
-    <div class="form-check form-switch">
-        <input name="isNewArrival" id="isNewArrival" data-id="{{$product->id}}" value="true" data-bs-toggle="toggle"  {{ isset($product) && $product->isNewArrival == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
-    </div>
-</td>
-							    <td>
-    <div class="form-check form-switch">
-        <input name="isFeatured" id="isFeatured" data-id="{{$product->id}}" value="true" data-bs-toggle="toggle"  {{ isset($product) && $product->isFeatured == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
-    </div>
-</td>
-							    <td>
-    <div class="form-check form-switch">
-        <input name="isSpecialOffer" id="isSpecialOffer" data-id="{{$product->id}}" value="true" data-bs-toggle="toggle"  {{ isset($product) && $product->isSpecialOffer == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
+        <input name="isFoot" id="isFoot" data-id="{{$page->id}}" value="true" data-bs-toggle="toggle"  {{ isset($page) && $page->isFoot == 'true' ? 'checked' : '' }} class="form-check-input" type="checkbox" role="switch" />
     </div>
 </td>
 						<td>
-                    <a href="{{ route('admin.product.show', ['id' => $product->id]) }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('admin.page.show', ['id' => $page->id]) }}" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-eye"></i>
                     </a>
-                    <a href="{{ route('admin.product.edit', ['id' => $product->id]) }}" class="btn btn-success btn-sm">
+                    <a href="{{ route('admin.page.edit', ['id' => $page->id]) }}" class="btn btn-success btn-sm">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="#" data-id="{{ $product->id }}" class="btn btn-danger btn-sm deleteBtn">
+                    <a href="#" data-id="{{ $page->id }}" class="btn btn-danger btn-sm deleteBtn">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </td>
@@ -113,7 +73,7 @@
 
         <!-- Pagination -->
         <div class="d-flex justify-content-center">
-            {{ $products->links('pagination::bootstrap-5') }}
+            {{ $pages->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </div>
@@ -152,7 +112,7 @@
             console.log({ checked, name, id });
             const data = { [name]: checked.toString() };
             const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-            const response = await fetch('/admin/products/speed/' + id, {
+            const response = await fetch('/admin/pages/speed/' + id, {
                 method: 'PUT',
                 body: JSON.stringify(data), // Utilisation de JSON.stringify au lieu de JSON.stringfy
                 headers: {
@@ -177,7 +137,7 @@
 
                 confirmDeleteBtn.addEventListener('click',async ()=>{
                     const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
-                    const response = await fetch('/admin/products/delete/'+id , {
+                    const response = await fetch('/admin/pages/delete/'+id , {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json',
@@ -198,7 +158,7 @@
 
         });
         document.addEventListener('DOMContentLoaded', function() {
-            const tableHeaders = document.querySelectorAll('#Product th');
+            const tableHeaders = document.querySelectorAll('#Page th');
             const columnSelector = document.getElementById('columnSelector');
 
             tableHeaders.forEach(function(header, index) {
@@ -213,7 +173,7 @@
                 checkbox.role="switch"
                 checkbox.className = 'columnSelector form-check-input';
                 checkbox.dataset.column = index;
-                const savedSelection = localStorage.getItem('selectedColumns#Product');
+                const savedSelection = localStorage.getItem('selectedColumns#Page');
                 checkbox.checked = !!!savedSelection; // Sélectionner par défaut
                 checkbox.addEventListener('change', function() {
                     const columnIndex = parseInt(checkbox.dataset.column);
@@ -256,7 +216,7 @@
         });
 
         function toggleColumn(columnIndex, show) {
-            const dataTable = document.getElementById('Product');
+            const dataTable = document.getElementById('Page');
             const cells = dataTable.querySelectorAll(
                 `tr td:nth-child(${columnIndex + 1}), th:nth-child(${columnIndex + 1})`);
 
@@ -273,11 +233,11 @@
             const selectedColumns = Array.from(document.querySelectorAll('.columnSelector'))
                 .filter(c => c.checked)
                 .map(c => c.dataset.column);
-            localStorage.setItem('selectedColumns#Product', JSON.stringify(selectedColumns));
+            localStorage.setItem('selectedColumns#Page', JSON.stringify(selectedColumns));
         }
 
         function loadSavedSelection() {
-            const savedSelection = localStorage.getItem('selectedColumns#Product');
+            const savedSelection = localStorage.getItem('selectedColumns#Page');
             if (savedSelection) {
                 const selectedColumns = JSON.parse(savedSelection);
                 selectedColumns.forEach(function(columnIndex) {
@@ -291,7 +251,7 @@
         }
 
         function sortTable(columnIndex) {
-            const table = document.getElementById('Product');
+            const table = document.getElementById('Page');
             const rows = Array.from(table.querySelectorAll('tbody tr'));
 
             console.log({rows});

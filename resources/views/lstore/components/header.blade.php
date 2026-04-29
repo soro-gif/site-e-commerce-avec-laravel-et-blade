@@ -92,24 +92,10 @@
                                 aria-expanded="false">Pages</a>
                             <div  class="dropdown-menu">
                                 <ul >
-                                    <li ><a  routerlink="/about"
-                                            class="dropdown-item nav-link nav_item" ng-reflect-router-link="/about"
-                                            href="/about">About Us</a></li>
-                                    <li ><a 
-                                            routerlink="/contact" class="dropdown-item nav-link nav_item"
-                                            ng-reflect-router-link="/contact" href="/contact">Contact Us</a></li>
-                                    <li ><a  routerlink="/fqa"
-                                            class="dropdown-item nav-link nav_item" ng-reflect-router-link="/fqa"
-                                            href="/fqa">Faq</a></li>
-                                    <li ><a 
-                                            routerlink="/signin" class="dropdown-item nav-link nav_item"
-                                            ng-reflect-router-link="/signin" href="/signin">Login</a></li>
-                                    <li ><a 
-                                            routerlink="/signup" class="dropdown-item nav-link nav_item"
-                                            ng-reflect-router-link="/signup" href="/signup">Register</a></li>
-                                    <li ><a  routerlink="/terms"
-                                            class="dropdown-item nav-link nav_item" ng-reflect-router-link="/terms"
-                                            href="/terms">Terms and Conditions</a></li>
+                                    @foreach (session()->get('pages')['headPages'] as $page)
+                                        <li ><a class="dropdown-item nav-link nav_item"
+                                            href="{{ route('page', ['page' => $page->slug]) }}">{{ $page->title }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>

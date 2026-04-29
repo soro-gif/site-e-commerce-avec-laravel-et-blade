@@ -50,7 +50,7 @@
         <th>ImageUrls</th>
         <td>
             <div class="form-group d-flex" id="preview_imageUrls" style="max-width: 100%;">
-               @foreach ($product->imageUrlsArray() as $url)
+               @foreach ($product->imageUrls() as $url)
                     <img src="{{ Storage::url($url) }}"
                          alt="Product image"
                          style="max-width: 100px; display: block;"
