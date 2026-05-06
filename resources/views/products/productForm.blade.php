@@ -27,7 +27,7 @@
             </div>
         @enderror
     </div>
-        <div class="mb-3">
+    <div class="mb-3">
         <label for="categories" class="form-label">Categories</label>
         <select name="categories[]" id="categories" class="form-control" multiple>
             <option disabled value="null">Select Categories</option>
@@ -36,6 +36,25 @@
                     value="{{$category->id}}" 
                     @if (in_array($category->id, old('categories', isset($product) ? $product->categories->pluck('id')->toArray() : []))) selected @endif>
                     {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+        @error('categories')
+            <div class="error text-danger">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+    <div class="mb-3">
+        <label for="tags" class="form-label">Tags</label>
+        <select name="tags[]" id="tags" class="form-control" multiple>
+            <option disabled value="null">Select Tags</option>
+            @foreach($tags as $tag)
+                <option value="{{ $tag->id }}"
+                    value="{{$tag->id}}" 
+                    @if (in_array($tag->id, old('categories', isset($product) ? $product->tags->pluck('id')->toArray() : []))) selected @endif>
+                    {{ $tag->name }}
                 </option>
             @endforeach
         </select>

@@ -80,6 +80,25 @@
     <a class="nav-link" href="{{route('admin.page.index')}}">
         Pages
     </a>
+</li><li class="nav-item">
+    <a class="nav-link" href="{{route('admin.tag.index')}}">
+        Tags
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link" href="{{route('admin.megacollection.index')}}">
+        Mega menu
+    </a>
+</li>
+
+{{-- <li class="nav-item">
+    <a class="nav-link" href="{{route('admin.settings.index')}}">
+        Settings
+    </a>
+</li> --}}
+<li class="nav-item">
+    <a class="nav-link" href="{{route('admin.setting.index')}}">
+        Settings
+    </a>
 </li></ul>
                 </div>
             </nav>

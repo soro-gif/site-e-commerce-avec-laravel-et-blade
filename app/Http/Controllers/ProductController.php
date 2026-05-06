@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -27,19 +28,22 @@ class ProductController extends Controller
     public function create(): View
     {
         $categories = Category::all();
-        return view('products/create', ['categories' => $categories]);
+        $tags = Tag::all();
+        return view('products/create', ['categories' => $categories, 'tags' => $tags]);
     }
 
     public function edit($id): View
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view('products/edit', ['product' => $product, 'categories' => $categories]);
+        $tags = Tag::all();
+        return view('products/edit', ['product' => $product, 'categories' => $categories, 'tags' => $tags]);
     }
 
-    public function store(ProductFormRequest $req): RedirectResponse
+    public function store(ProductFormRequest $req ): RedirectResponse
     {
         $categories = $req->validated('categories');
+        $tags = $req->validated('tags');
         $data = $req->validated();
     
             if ($req->hasFile('imageUrls')) {
@@ -47,6 +51,9 @@ class ProductController extends Controller
     }
 
         $product = Product::create($data);
+        if($tags){
+            $product->tags()->sync($tags);
+        }
         $product->categories()->sync($categories);
         return redirect()->route('admin.product.show', ['id' => $product->id]);
     }
@@ -54,12 +61,17 @@ class ProductController extends Controller
     public function update(Product $product, ProductFormRequest $req)
     {
         $data = $req->validated();
+        $tags = $req->validated('tags');
+        
+        if($tags){
+            $product->tags()->sync($tags);
+        }
         $categories = $req->validated('categories');
          $product->categories()->sync($categories);
             if ($req->hasFile('imageUrls')) {
         $uploadedImages = $this->handleImageUpload($req->file('imageUrls'));
         // Suppression des anciennes images s'il en existe
-        $oldImages = $product->imageUrlsArray();
+        $oldImages = $product->imageUrls();
         if (!empty($oldImages)) {
             foreach ($oldImages as $imageUrl) {
                 Storage::disk('public')->delete($imageUrl);
@@ -88,7 +100,7 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        $images = $product->imageUrlsArray();
+        $images = $product->imageUrls();
         if (!empty($images)) {
             foreach ($images as $image) {
                 Storage::disk('public')->delete($image);

@@ -17,7 +17,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('preload.page');
 Route::get('/page/{page}', [HomeController::class, 'showPage'])->name('page')->middleware('preload.page');
-
+Route::get('/product/{slug}', [HomeController::class, 'showProduct'])->name('product')->middleware('preload.page');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -217,5 +217,87 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     //Delete Page
     Route::delete('/pages/delete/{page}', 'App\Http\Controllers\PageController@delete')->name('page.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Tags datas
+    Route::get('/tags', 'App\Http\Controllers\TagController@index')->name('tag.index');
+
+    //Show Tag by Id
+    Route::get('/tags/show/{id}', 'App\Http\Controllers\TagController@show')->name('tag.show');
+
+    //Get Tags by Id
+    Route::get('/tags/create', 'App\Http\Controllers\TagController@create')->name('tag.create');
+
+    //Edit Tag by Id
+    Route::get('/tags/edit/{id}', 'App\Http\Controllers\TagController@edit')->name('tag.edit');
+
+    //Save new Tag
+    Route::post('/tags/store', 'App\Http\Controllers\TagController@store')->name('tag.store');
+
+    //Update One Tag
+    Route::put('/tags/update/{tag}', 'App\Http\Controllers\TagController@update')->name('tag.update');
+
+    //Update One Tag Speedly
+    Route::put('/tags/speed/{tag}', 'App\Http\Controllers\TagController@updateSpeed')->name('tag.update.speed');
+
+    //Delete Tag
+    Route::delete('/tags/delete/{tag}', 'App\Http\Controllers\TagController@delete')->name('tag.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Megacollections datas
+    Route::get('/megacollections', 'App\Http\Controllers\MegacollectionController@index')->name('megacollection.index');
+
+    //Show Megacollection by Id
+    Route::get('/megacollections/show/{id}', 'App\Http\Controllers\MegacollectionController@show')->name('megacollection.show');
+
+    //Get Megacollections by Id
+    Route::get('/megacollections/create', 'App\Http\Controllers\MegacollectionController@create')->name('megacollection.create');
+
+    //Edit Megacollection by Id
+    Route::get('/megacollections/edit/{id}', 'App\Http\Controllers\MegacollectionController@edit')->name('megacollection.edit');
+
+    //Save new Megacollection
+    Route::post('/megacollections/store', 'App\Http\Controllers\MegacollectionController@store')->name('megacollection.store');
+
+    //Update One Megacollection
+    Route::put('/megacollections/update/{megacollection}', 'App\Http\Controllers\MegacollectionController@update')->name('megacollection.update');
+
+    //Update One Megacollection Speedly
+    Route::put('/megacollections/speed/{megacollection}', 'App\Http\Controllers\MegacollectionController@updateSpeed')->name('megacollection.update.speed');
+
+    //Delete Megacollection
+    Route::delete('/megacollections/delete/{megacollection}', 'App\Http\Controllers\MegacollectionController@delete')->name('megacollection.delete');
+
+});
+
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Settings datas
+    Route::get('/settings', 'App\Http\Controllers\SettingController@index')->name('setting.index');
+
+    //Show Setting by Id
+    Route::get('/settings/show/{id}', 'App\Http\Controllers\SettingController@show')->name('setting.show');
+
+    //Get Settings by Id
+    Route::get('/settings/create', 'App\Http\Controllers\SettingController@create')->name('setting.create');
+
+    //Edit Setting by Id
+    Route::get('/settings/edit/{id}', 'App\Http\Controllers\SettingController@edit')->name('setting.edit');
+
+    //Save new Setting
+    Route::post('/settings/store', 'App\Http\Controllers\SettingController@store')->name('setting.store');
+
+    //Update One Setting
+    Route::put('/settings/update/{setting}', 'App\Http\Controllers\SettingController@update')->name('setting.update');
+
+    //Update One Setting Speedly
+    Route::put('/settings/speed/{setting}', 'App\Http\Controllers\SettingController@updateSpeed')->name('setting.update.speed');
+
+    //Delete Setting
+    Route::delete('/settings/delete/{setting}', 'App\Http\Controllers\SettingController@delete')->name('setting.delete');
 
 });

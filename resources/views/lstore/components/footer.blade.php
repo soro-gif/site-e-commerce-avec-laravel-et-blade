@@ -78,13 +78,17 @@
                         <ul  class="contact_info contact_info_light">
                             <li ><i 
                                     class="ti-location-pin"></i>
-                                <p >21 Rue Rubens 59800 Lille</p>
+                                <p >
+                                    {{ session()->get('settings')?->street }} 
+                                    {{ session()->get('settings')?->codePostal }} 
+                                    {{ session()->get('settings')?->city }}
+                                </p>
                             </li>
                             <li ><i  class="ti-email"></i><a
-                                     href="mailto:contact@jstore.fr">contact@jstore.fr</a>
+                                     href="mailto:{{ session()->get('settings')?->email }}">{{ session()->get('settings')?->email }}</a>
                             </li>
                             <li ><i  class="ti-mobile"></i>
-                                <p >+33 7 49 31 69 74</p>
+                                <p >{{ session()->get('settings')?->phone }}</p>
                             </li>
                         </ul>
                     </div>

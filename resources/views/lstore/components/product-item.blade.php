@@ -1,5 +1,5 @@
                                         <div class="product">
-                                            <div class="product_img"><a href="shop-product-detail.html"><img
+                                            <div class="product_img"><a href="{{ route('product', ['slug' => $product->slug]) }}"><img
                                                         alt="product_img1"
                                                         src="{{ Storage::url($product->imageUrls()[0]) }}"></a>
                                                        
@@ -18,12 +18,12 @@
                                             </div>
                                             <div class="product_info">
                                                 <h6 class="product_title"><a
-                                                        ng-reflect-router-link="/,product,bikini-unicolore-cte"
-                                                        href="/product/bikini-unicolore-ctel-shop"> {{ $product->name }} </a></h6>
+                                                        href="{{ route('product', ['slug' => $product->slug]) }}">
+                                                         {{ $product->name }} </a></h6>
                                                 <div class="product_price"><span
-                                                        class="price">{{ number_format($product->soldePrice, 2, '.', ' ') . 'FCFA' }}</span>
-                                                        <del>{{ number_format($product->regularPrice, 2, '.', ' ') . 'FCFA' }}</del>
-                                                    <div class="on_sale"><span>35% Off</span></div>
+                                                        class="price">{{ $format_price($product->soldePrice) }}</span>
+                                                        <del>{{ $format_price($product->regularPrice) }}</del>
+                                                    <div class="on_sale"><span>{{ $calculateReduction($product) }}% Off</span></div>
                                                 </div>
                                                 <div class="rating_wrap">
                                                     <div class="rating">

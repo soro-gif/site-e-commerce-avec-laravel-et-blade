@@ -77,7 +77,9 @@
         <div  class="container">
             <nav  class="navbar navbar-expand-lg"><a 
                     routerlink="/" class="navbar-brand" ng-reflect-router-link="/" href="/">
-                    <h2 >Jstore</h2>
+                    <h2 >
+                        {{ session()->get('settings')?->name }}
+                    </h2>
                 </a><button  type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-expanded="false"
                     class="navbar-toggler collapsed"><span 
@@ -104,136 +106,40 @@
                                 class="dropdown-toggle nav-link" aria-expanded="false">Products</a>
                             <div  class="dropdown-menu">
                                 <ul  class="mega-menu d-lg-flex">
-                                    <li  class="mega-menu-col col-lg-3">
+                                    @foreach (session()->get('pages')['mega_menus'] ?? [] as $category)
+                                         <li  class="mega-menu-col col-lg-3">
                                         <ul >
-                                            <li  class="dropdown-header">Robes</li>
-                                            <li ><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,bikini-unicolore-cte"
-                                                    href="/product/bikini-unicolore-ctel-shop">Bikini unicolore
-                                                    côtelé</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,jupe-crayon-taille-h"
-                                                    href="/product/jupe-crayon-taille-haute-en-dentelle">Jupe crayon
-                                                    taille haute en dentelle</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,jupe-imprim-floral-t"
-                                                    href="/product/jupe-imprim-floral-taille-fronce">Jupe à imprimé
-                                                    floral à taille froncée</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,robe-fines-brides-im"
-                                                    href="/product/robe-fines-brides-imprim-tropical-en-dentelle">Robe à
-                                                    fines brides à imprimé tropical en dentelle</a>
+                                            <li  class="dropdown-header">{{ $category->name }}</li>
+                                            @foreach ($category->products as $product)
+                                                 <li >
+                                                    <a class="dropdown-item nav-link nav_item"
+                                                    href="{{ route('product', ['slug' => $product->slug]) }}">
+                                                    <img src="{{ Storage::url($product->imageUrls()[0]) }}" width="25" height="25" alt="{{ $product->name }}">
+                                                    {{ $product->name }}</a>
                                             </li>
+                                            @endforeach
+                                           
                                         </ul>
                                     </li>
-                                    <li  class="mega-menu-col col-lg-3">
-                                        <ul >
-                                            <li  class="dropdown-header">Jupes</li>
-                                            <li ><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,bikini-unicolore-cte"
-                                                    href="/product/bikini-unicolore-ctel-shop">Bikini unicolore
-                                                    côtelé</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,jupe-noire-brillante"
-                                                    href="/product/jupe-noire-brillante">Jupe noire brillante</a><a
-                                                     class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,jupe-fendue-taille-h"
-                                                    href="/product/jupe-fendue-taille-haute">Jupe fendue taille
-                                                    haute</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,jupe-imprim-floral-t"
-                                                    href="/product/jupe-imprim-floral-taille-fronce">Jupe à imprimé
-                                                    floral à taille froncée</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li  class="mega-menu-col col-lg-3">
-                                        <ul >
-                                            <li  class="dropdown-header">Culotes </li>
-                                            <li ><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,bikini-unicolore-cte"
-                                                    href="/product/bikini-unicolore-ctel-shop">Bikini unicolore
-                                                    côtelé</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,culotte-en-dentelle-"
-                                                    href="/product/culotte-en-dentelle-mudey">Culotte en dentelle</a><a
-                                                     class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,culotte-en-dentelle-"
-                                                    href="/product/culotte-en-dentelle-espero">Culotte en dentelle</a><a
-                                                     class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,culotte-en-dentelle"
-                                                    href="/product/culotte-en-dentelle">Culotte en dentelle</a><a
-                                                     class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,short-paillettes-bro"
-                                                    href="/product/short-paillettes-broderie-dchir">Short à paillettes à
-                                                    broderie déchiré</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li  class="mega-menu-col col-lg-3">
-                                        <ul >
-                                            <li  class="dropdown-header">Pantalons</li>
-                                            <li ><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,pantalon-taille-haut"
-                                                    href="/product/pantalon-taille-haute-carreaux-avec-zip">Pantalon
-                                                    taille haute à carreaux avec zip</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,pantalon-carreaux-av"
-                                                    href="/product/pantalon-carreaux-avec-cordon-la-taille">Pantalon à
-                                                    carreaux avec cordon à la taille</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,pantalon-taille-fron"
-                                                    href="/product/pantalon-taille-fronce-poches">Pantalon à taille
-                                                    froncée à poches</a><a 
-                                                    class="dropdown-item nav-link nav_item"
-                                                    ng-reflect-router-link="/,product,pantalon-unicolore-t"
-                                                    href="/product/pantalon-unicolore-taille-haute">Pantalon unicolore
-                                                    taille haute</a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    @endforeach
+                                   
                                 </ul>
                                 <div  class="d-lg-flex menu_banners row g-3 px-3">
-                                    <div  class="col-sm-4">
+                                    @foreach (session()->get('pages')['mega_collection'] as $collection)
+                                        <div  class="col-sm-4">
                                         <div  class="header-banner"><img
                                                  alt="menu_banner1"
-                                                src="/assets/files/megaCollection/11736749706614988691774027121876766721152610541684827357419.png">
+                                                src="{{ Storage::url($collection->imageUrl) }}">
                                             <div  class="banne_info">
-                                                <h6 >10% Off</h6>
-                                                <h4 >New Arrival</h4><a
-                                                     href="http://localhost:4300/">Shop
-                                                    Now</a>
+                                                <h6 >{{ $collection->description }}</h6>
+                                                <h4 >{{ $collection->title }}</h4>
+                                                <a href="{{ $collection->buttonLink }}">{{ $collection->buttonText }}</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div  class="col-sm-4">
-                                        <div  class="header-banner"><img
-                                                 alt="menu_banner1"
-                                                src="/assets/files/megaCollection/8932488097310286313588503554459963159142614451684826970123.png">
-                                            <div  class="banne_info">
-                                                <h6 >15% Off</h6>
-                                                <h4 >Men's Fashion</h4><a
-                                                     href="http://localhost:4300/">Shop
-                                                    Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div  class="col-sm-4">
-                                        <div  class="header-banner"><img
-                                                 alt="menu_banner1"
-                                                src="/assets/files/megaCollection/1412527185807988177642011518607795945067036381684827015102.png">
-                                            <div  class="banne_info">
-                                                <h6 >23% Off</h6>
-                                                <h4 >Kids Fashion</h4><a
-                                                     href="http://localhost:4300/">Shop
-                                                    Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    
+                                
                                 </div>
                             </div>
                         </li>

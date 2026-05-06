@@ -32,4 +32,9 @@ class HomeController extends Controller
         $page = Page::where('slug', $slug)->firstOrFail();
         return view('lstore.page', ['page' => $page]);
     }
+    public function showProduct( string $slug)
+    {
+        $product = Product::where('slug', $slug)->firstOrFail();
+        return view('lstore.product', ['product' => $product]);
+    }
 }

@@ -26,4 +26,12 @@ public function imageUrls(): array
         : (json_decode($this->imageUrls, true) ?? []);
 }
 	protected $fillable = ['name', 'slug', 'description', 'moreDescription', 'additionalInfos', 'stock', 'soldePrice', 'regularPrice', 'imageUrls', 'brand', 'isAvailable', 'isBestSeller', 'isNewArrival', 'isFeatured', 'isSpecialOffer'];
+
+	public function tags()
+	{
+		
+		return $this->belongsToMany(\App\Models\Tag::class);
+	
+	}
+
 }

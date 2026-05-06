@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Page;
+use App\Models\Category;
+use App\Models\Setting;
+use App\Models\Megacollection;
 use Illuminate\Support\Facades\Session;
 class PreloadSessionData
 {
@@ -19,11 +22,20 @@ class PreloadSessionData
         $session = $request->session();
         $headPages = Page::where("isHead", 'true')->get();
         $footPages = Page::where("isFoot", 'true')->get();
+        $mega_menus = Category::where("isMega", 'true')->take(4)->get();
+        $mega_collection = Megacollection::all();
+        $settings = Setting::first();
         $pages = [
             "headPages" => $headPages,
-            "footPages" => $footPages
+            "footPages" => $footPages,
+            "mega_menus" => $mega_menus,
+            "mega_collection" => $mega_collection,
+            "settings" => $settings
         ];
         $session->put('pages', $pages);
+        $session->put('mega_menus', $mega_menus);
+        $session->put('mega_collection', $mega_collection);
+        $session->put('settings', Setting::first());
         return $next($request);
     }
 }
