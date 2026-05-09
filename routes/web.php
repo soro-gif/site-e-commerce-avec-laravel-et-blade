@@ -16,6 +16,7 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('preload.page');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact')->middleware('preload.page');
 Route::get('/page/{page}', [HomeController::class, 'showPage'])->name('page')->middleware('preload.page');
 Route::get('/product/{slug}', [HomeController::class, 'showProduct'])->name('product')->middleware('preload.page');
 Route::get('/dashboard', function () {
@@ -299,5 +300,59 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
     //Delete Setting
     Route::delete('/settings/delete/{setting}', 'App\Http\Controllers\SettingController@delete')->name('setting.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Socials datas
+    Route::get('/socials', 'App\Http\Controllers\SocialController@index')->name('social.index');
+
+    //Show Social by Id
+    Route::get('/socials/show/{id}', 'App\Http\Controllers\SocialController@show')->name('social.show');
+
+    //Get Socials by Id
+    Route::get('/socials/create', 'App\Http\Controllers\SocialController@create')->name('social.create');
+
+    //Edit Social by Id
+    Route::get('/socials/edit/{id}', 'App\Http\Controllers\SocialController@edit')->name('social.edit');
+
+    //Save new Social
+    Route::post('/socials/store', 'App\Http\Controllers\SocialController@store')->name('social.store');
+
+    //Update One Social
+    Route::put('/socials/update/{social}', 'App\Http\Controllers\SocialController@update')->name('social.update');
+
+    //Update One Social Speedly
+    Route::put('/socials/speed/{social}', 'App\Http\Controllers\SocialController@updateSpeed')->name('social.update.speed');
+
+    //Delete Social
+    Route::delete('/socials/delete/{social}', 'App\Http\Controllers\SocialController@delete')->name('social.delete');
+
+});
+Route::prefix('admin')->name('admin.')->group(function(){
+
+    //Get Contacts datas
+    Route::get('/contacts', 'App\Http\Controllers\ContactController@index')->name('contact.index');
+
+    //Show Contact by Id
+    Route::get('/contacts/show/{id}', 'App\Http\Controllers\ContactController@show')->name('contact.show');
+
+    //Get Contacts by Id
+    Route::get('/contacts/create', 'App\Http\Controllers\ContactController@create')->name('contact.create');
+
+    //Edit Contact by Id
+    Route::get('/contacts/edit/{id}', 'App\Http\Controllers\ContactController@edit')->name('contact.edit');
+
+    //Save new Contact
+    Route::post('/contacts/store', 'App\Http\Controllers\ContactController@store')->name('contact.store');
+
+    //Update One Contact
+    Route::put('/contacts/update/{contact}', 'App\Http\Controllers\ContactController@update')->name('contact.update');
+
+    //Update One Contact Speedly
+    Route::put('/contacts/speed/{contact}', 'App\Http\Controllers\ContactController@updateSpeed')->name('contact.update.speed');
+
+    //Delete Contact
+    Route::delete('/contacts/delete/{contact}', 'App\Http\Controllers\ContactController@delete')->name('contact.delete');
 
 });

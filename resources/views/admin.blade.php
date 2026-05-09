@@ -99,6 +99,14 @@
     <a class="nav-link" href="{{route('admin.setting.index')}}">
         Settings
     </a>
+</li><li class="nav-item">
+    <a class="nav-link" href="{{route('admin.social.index')}}">
+        Socials
+    </a>
+</li><li class="nav-item">
+    <a class="nav-link" href="{{route('admin.contact.index')}}">
+        Contacts
+    </a>
 </li></ul>
                 </div>
             </nav>

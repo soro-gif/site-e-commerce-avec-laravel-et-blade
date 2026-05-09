@@ -4,28 +4,20 @@
             <div  class="row">
                 <div  class="col-lg-3 col-md-6 col-sm-12">
                     <div  class="widget">
-                        <div  class="footer_logo"><a  href="#">
-                                <h2 >Jstore</h2>
+                        <div  class="footer_logo"><a  href="{{ route('home') }}">
+                                <h2 >{{ session()->get('settings')?->name }}</h2>
                             </a></div>
-                        <p > Retrouvez tous les accessoires et habits pour femmes, jeunes
-                            filles etc... </p>
+                        <p >{{ session()->get('settings')?->description }}</p>
                     </div>
                     <div  class="widget">
                         <ul  class="social_icons social_white">
-                            <li ><a  target="_blank"
-                                    href="https://facebook.com"><i 
-                                        class="ion-social-facebook"></i></a>
+                            @foreach (session()->get('socials') as $social)
+                                <li ><a  target="_blank"
+                                    href="{{ $social->link }}">
+                                    <i class="{{ $social->icon }}"></i>
+                                    </a>
                             </li>
-                            <li ></li>
-                            <li ></li>
-                            <li ><a  target="_blank"
-                                    href="https://www.youtube.com/channel/UCkqALrIVPEyGnnbmiFl3lQA/?sub_confirmation=1"><i
-                                         class="ion-social-youtube-outline"></i></a>
-                            </li>
-                            <li ><a  target="_blank"
-                                    href="https://www.instagram.com/mudey_formation/"><i 
-                                        class="ion-social-instagram-outline"></i></a>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -100,8 +92,9 @@
         <div  class="container">
             <div  class="row">
                 <div  class="col-md-6">
-                    <p  class="mb-md-0 text-center text-md-start"> © 2023 All Rights
-                        Reserved by Espero-Soft Informatiques </p>
+                    <p  class="mb-md-0 text-center text-md-start">
+                          {{ session()->get('settings')?->copyright }}
+                    </p>
                 </div>
                 <div  class="col-md-6">
                     <ul 

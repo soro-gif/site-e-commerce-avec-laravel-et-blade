@@ -37,4 +37,9 @@ class HomeController extends Controller
         $product = Product::where('slug', $slug)->firstOrFail();
         return view('lstore.product', ['product' => $product]);
     }
+        public function contact( )
+    {
+        
+        return view('lstore.contact');
+    }
 }

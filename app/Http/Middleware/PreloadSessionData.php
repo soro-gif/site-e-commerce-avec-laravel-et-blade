@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\Page;
 use App\Models\Category;
 use App\Models\Setting;
+use App\Models\Social;
 use App\Models\Megacollection;
 use Illuminate\Support\Facades\Session;
 class PreloadSessionData
@@ -25,17 +26,20 @@ class PreloadSessionData
         $mega_menus = Category::where("isMega", 'true')->take(4)->get();
         $mega_collection = Megacollection::all();
         $settings = Setting::first();
+        $socials = Social::all();
         $pages = [
             "headPages" => $headPages,
             "footPages" => $footPages,
             "mega_menus" => $mega_menus,
             "mega_collection" => $mega_collection,
-            "settings" => $settings
+            "settings" => $settings,
+            "socials" => $socials
         ];
         $session->put('pages', $pages);
         $session->put('mega_menus', $mega_menus);
         $session->put('mega_collection', $mega_collection);
         $session->put('settings', Setting::first());
+        $session->put('socials', Social::all());
         return $next($request);
     }
 }
